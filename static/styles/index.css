@@ -1,0 +1,81 @@
+/* Adapted from https://www.w3schools.com/howto/howto_js_slideshow.asp */
+
+.left {
+  position: relative;
+  /*top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;*/
+  /*max-width: 100%;*/
+  min-height: 100%;
+  margin: auto;
+  overflow: auto;
+  /*text-align: center;*/
+}
+
+.right {
+  padding: 50px;
+}
+
+.cartoonImage {
+  min-height: 50%;
+  min-width: 50%;
+  position: absolute;
+  left: 25%;
+  top: 10%;
+  margin: 0;
+}
+
+.captionCover{
+  position: absolute;
+  background-color: white;
+  min-height: 40px;
+  min-width: 300px;
+  top: 53%;
+  left: 25%;
+}
+
+.prev, .next, .prev:hover, .next:hover{
+cursor: pointer;
+  position: absolute;
+  top: 30%;
+  width: auto;
+  color: black;
+  font-weight: bold;
+  font-size: 50px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+.next {
+  right: 15%;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  left: 15%;
+}
+
+.keyword-form {
+  position: absolute;
+  top: 65%;
+  left: 15%;
+}
+
+.gen-btn {
+  position: absolute;
+  top: 80%;
+  left: 15%;
+}
+
+a, a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.captions {
+  /*position: absolute;
+  top: 70%;
+  left: 30%;
+  font-weight: bold;*/
+}
