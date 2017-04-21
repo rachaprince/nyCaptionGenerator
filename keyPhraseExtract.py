@@ -25,13 +25,13 @@ MODEL_PATH = './jars/englishPCFG.ser.gz'
 def extract_words(stree):
     words = []
     stop = set(stopwords.words('english'))
-    # lmtzr = WordNetLemmatizer()
-    # st = LancasterStemmer()
+    lmtzr = WordNetLemmatizer()
+    st = LancasterStemmer()
 
     words += stree.leaves()
     words = [ item for item in words if item not in stop] # remove stopwords
-    # words =  [st.stem(item) if wordnet.synsets(st.stem(item)) else item.lower() for item in words] # stem if word
-    # words = [lmtzr.lemmatize(item) for item in words] # lemmatize
+    words =  [st.stem(item) if wordnet.synsets(st.stem(item)) else item.lower() for item in words] # stem if word
+    words = [lmtzr.lemmatize(item) for item in words] # lemmatize
     return words
 
 def score_words(words):
@@ -74,8 +74,11 @@ def select_keyword(ranked_candidates, sent):
 
     # If only one NP, return 2 words with greatest log probability
     elif len(ranked_candidates) == 1:
+        # print ranked_candidates
+        # print ranked_candidates[-1]
+        # print ranked_candidates[0]
         if len(ranked_candidates[0]) > 1:
-            return ( [ranked_candidates[0][0], ranked_candidates[-1][0]] , pair)
+            return ( [ranked_candidates[0][0][0], ranked_candidates[0][-1][0] ] , pair)
         else:
             return (pair, pair)
 
@@ -101,7 +104,7 @@ def select_keyword(ranked_candidates, sent):
                 #     min_similarity = similarity
                 max_score = score
                 pair = [result[0][0] , result[-1][0]]
-                print pair
+
 
     return pair, pairs
 
@@ -113,16 +116,27 @@ def keyphrase_extract(sent):
     candidates = []
     for line in sentences:
         for sentence in line:
-            print sentence
+            # print sentence
             for np_subtree in sentence.subtrees(filter=lambda x: x.label()== 'NP' or x.label() == 'VB'):
                 words = extract_words(np_subtree)
                 candidates.append(words)
 
+    # in case of nested subtrees, remove subsets
+    candidates_2 = candidates[:]
+
+    for l in candidates:
+        for l2 in candidates:
+            if set(l).issubset(set(l2)) and l != l2:
+                candidates_2.remove(l)
+                break
+
     ranked_candidates = []
-    for word in candidates:
+    # print candidates_2
+    for word in candidates_2:
         ranked_candidates.append(score_words(word))
 
-    print ranked_candidates
+    # print ranked_candidates
+    # exit()
 
     key_phrase_list = select_keyword(ranked_candidates, sent)
     return key_phrase_list
@@ -130,5 +144,6 @@ def keyphrase_extract(sent):
 
 if __name__ == "__main__":
     # sent = "Helpful people are not being helpful; man covered in the dirt"
-    sent = 'Huge birds'
+    # sent = 'Huge birds'
+    sent = 'there is a desert island in a fish bowl with a small man'
     keyphrase_extract(sent)

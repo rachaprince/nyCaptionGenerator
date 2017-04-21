@@ -58,13 +58,19 @@ cursor: pointer;
 
 .keyword-form {
   position: absolute;
-  top: 65%;
+  top: 60%;
   left: 15%;
 }
 
 .gen-btn {
   position: absolute;
-  top: 80%;
+  /*top: 78%;*/
+  left: 45%;
+}
+
+.ket-btn {
+  position: absolute;
+  /*top: 78%;*/
   left: 15%;
 }
 

@@ -1,0 +1,1 @@
+../phraseScrapers/truisms_1.txt

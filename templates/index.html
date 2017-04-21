@@ -18,17 +18,19 @@
                 <img class="cartoonImage" src="http://clair.si.umich.edu/~radev/humor/NYKR_CaptionContest/{{ contest.image }}" alt={{ contest.image }} width="120" height="90" />
                 <a class="prev"  href="{{ url_for('contests', contest_id=(contest.id - 1)) }}">&#10094;</a>
                 <a class="next" href="{{ url_for('contests', contest_id=(contest.id + 1)) }}">&#10095;</a>
-                <div class="captionCover"> </div>
+                <div class="captionCover">  </div>
                 <br>
                 <form action="{{ url_for('contests', contest_id=(contest.id)) }}" method="post" class="keyword-form form-inline">
+                    <b> Manual Incongruity Description: </b> <br>
+                    {{ contest.incongruity}} <br> <br>
+                    <label for="keyword_0" class="control-label">Suggested Keywords</label><br>
                     <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" name="keyword_0" value={{contest.keyword_0}}>
                     <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" name="keyword_1" value={{contest.keyword_1}}>
                     <br>
                     <br>
-                    <button type="submit" class="btn btn-primary" id="key-btn">Update Keywords</button>
+                    <button type="submit" class="btn btn-primary key-btn" id="key-btn">Change Keywords</button>
+                    <button type="submit" class="gen-btn btn btn-primary"><a class="gen-link" href="{{ url_for('captions', contest_id=(contest.id)) }}"> Generate Captions</a></button>
                 </form>
-                <br>
-                <button type="submit" class="gen-btn btn btn-primary"><a class="gen-link" href="{{ url_for('captions', contest_id=(contest.id)) }}"> Generate Captions</a></button>
             </div>
             <div class="right col-md-6">
                 <div class="captions">
